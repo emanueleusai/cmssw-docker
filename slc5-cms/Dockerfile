@@ -27,6 +27,8 @@ LABEL   org.label-schema.build-date=$BUILD_DATE \
 USER root
 WORKDIR /root
 
+
+
 RUN     yum install -y libXft-devel libX11-devel libXpm-devel libXext-devel mesa-libGLU-devel \
         libXmu libXpm libSM libXft libXext \
         wget git \
@@ -52,6 +54,10 @@ RUN     wget http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI
         mv HEP_OSlibs.repo /etc/yum.repos.d/ && \
         yum install -y HEP_OSlibs_SL5 ca-policy-lcg ca-policy-egi-core wlcg-repo.noarch wlcg-voms-cms && \
         yum clean -y all
+
+ADD     git-test-inst /root/git-test-inst
+ADD     update_script.sh /root/update_script.sh
+RUN     chmod +x /root/update_script.sh && source /root/update_script.sh
 
 RUN     groupadd -g 1000 cmsusr && adduser -u 1000 -g 1000 -G root cmsusr && \
         echo "cmsusr ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers && \
