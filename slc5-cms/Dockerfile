@@ -27,7 +27,7 @@ LABEL   org.label-schema.build-date=$BUILD_DATE \
 USER root
 WORKDIR /root
 
-
+ADD epel.repo /etc/yum.repos.d/epel.repo
 
 RUN     yum install -y libXft-devel libX11-devel libXpm-devel libXext-devel mesa-libGLU-devel \
         libXmu libXpm libSM libXft libXext \
@@ -50,8 +50,6 @@ RUN     wget http://repository.egi.eu/sw/production/cas/1/current/repo-files/EGI
         mv wlcg-sl5.repo /etc/yum.repos.d/ && \
         wget http://linuxsoft.cern.ch/wlcg/RPM-GPG-KEY-wlcg && \
         mv RPM-GPG-KEY-wlcg /etc/pki/rpm-gpg/ && \
-        wget http://grid-deployment.web.cern.ch/grid-deployment/download/HEP/repo/HEP_OSlibs.repo && \
-        mv HEP_OSlibs.repo /etc/yum.repos.d/ && \
         yum install -y HEP_OSlibs_SL5 ca-policy-lcg ca-policy-egi-core wlcg-repo.noarch wlcg-voms-cms && \
         yum clean -y all
 
